@@ -7,8 +7,5 @@ class Deck:
         suits = ("Hearts", "Spades", "Diamonds", "Clubs")
         values = ("2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
 
-        self.cards = []
-        for suit in suits:
-            for value in values:
-                self.cards.append(Card(suit, value))
+        self.cards = [Card(suit, value) for suit in suits for value in values]
                 
