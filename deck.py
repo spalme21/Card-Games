@@ -1,5 +1,6 @@
-from card import Card
 from random import shuffle
+
+from card import Card
 
 class Deck:
     """A class to represent a deck of cards"""
@@ -13,3 +14,7 @@ class Deck:
     def shuffle_deck(self):
         """Return a shuffled deck"""
         shuffle(self.cards)
+
+    def draw(self):
+        """Remove the top card and return it"""
+        return self.cards.pop()
