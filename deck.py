@@ -1,6 +1,7 @@
 from random import shuffle
 
 from card import Card
+from hand import Hand
 
 class Deck:
     """A class to represent a deck of cards"""
@@ -21,8 +22,8 @@ class Deck:
 
     def deal_hands(self, number_of_hands, size_of_hand):
         """Return  a set number of hands of a set number of cards"""
-        hands = [[] for i in range(number_of_hands)]
+        hands = [Hand() for i in range(number_of_hands)]
         for i in range(size_of_hand):
             for hand in hands:
-                hand.append(self.draw())
+                hand.add_card(self.draw())
         return hands

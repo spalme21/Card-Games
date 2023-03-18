@@ -16,14 +16,13 @@ class GoFish:
     def _intro(self):
         """Introduce the game and the rules"""
         print("Welcome to Go Fish!")
-        time.sleep(3)
+        time.sleep(1)
         name = input("Enter your name: ")
         print(f"Hello {name}!")
         time.sleep(1)
         print("Here's your hand:")
-        print(self.player_hand)
-
-
+        self.player_hand.show_hand()
+        
 if __name__ == "__main__":
     game = GoFish()
     game.run_game()
