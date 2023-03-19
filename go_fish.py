@@ -8,6 +8,8 @@ class GoFish:
     def __init__(self):
         self.deck = Deck()
         self.computer_hand, self.player_hand = self.deck.deal_hands(2, 7)
+        self.computer_pairs = []
+        self.player_pairs = []
 
     def run_game(self):
         """Run the game"""
@@ -22,7 +24,9 @@ class GoFish:
         time.sleep(1)
         print("Here's your hand:")
         self.player_hand.show_hand()
+        time.sleep(1)
         
+
 if __name__ == "__main__":
     game = GoFish()
     game.run_game()
