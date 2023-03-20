@@ -8,6 +8,11 @@ class Hand:
     def __init__(self):
         self.cards = []
 
+    def is_empty(self):
+        if self.cards:
+            return False
+        return True
+
     def add_card(self, card):
         """Add a card to the hand"""
         self.cards.append(card)
@@ -27,6 +32,7 @@ class Hand:
         for card in self.cards:
             if card_to_check.same_value(card):
                 return self.remove_card(card)
+        return False
 
     def check_for_pairs(self):
         """Check hand for pairs and remove them"""
