@@ -29,6 +29,7 @@ class Hand:
                 return self.remove_card(card)
 
     def check_for_pairs(self):
+        """Check hand for pairs and remove them"""
         card_dups = []
         pairs = []
         while self.cards:
@@ -36,8 +37,10 @@ class Hand:
             for card_2 in self.cards:
                 if card_1.same_value(card_2):
                     pairs.append(card_1)
-                    pairs.append(card_2)
+                    pairs.append(self.cards.pop(self.cards.index(card_2)))
                     break
-                
-            
-            
+            if card_1 not in pairs:
+                card_dups.append(card_1)
+        self.cards = card_dups
+        return pairs
+    
