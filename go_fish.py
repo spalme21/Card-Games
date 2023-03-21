@@ -1,4 +1,5 @@
 import time
+from random import choice
 
 from deck import Deck
 
@@ -15,7 +16,9 @@ class GoFish:
     def run_game(self):
         """Run the game"""
         self._start()
-        self.player_turn()
+        while self.deck.cards:
+            self.player_turn()
+            self.computer_turn()
 
     def _start(self):
         """Introduce the game and the rules"""
@@ -33,6 +36,8 @@ class GoFish:
 
     def player_turn(self):
         """A turn"""
+        print("It's your turn.")
+        time.sleep(1)
         if self.player_hand.is_empty():
             print("\nYou have no cards. Draw.")
             self.player_hand.add_card(self.deck.draw())
@@ -65,22 +70,68 @@ class GoFish:
             time.sleep(1)
             if drawn.same_value(requested_card):
                 print("You got the card you asked for!")
-                self.player_pairs.append(match)
+                self.player_pairs.append(drawn)
                 self.player_pairs.append(requested_card)
                 self._show_pairs(self.player_pairs)
                 time.sleep(1)
                 self.player_turn()
             else:
+                self.player_hand.add_card(requested_card)
                 match = self.player_hand.check_for_match(drawn)
                 if match:
                     print("You got a match!")
                     self.player_pairs.append(match)
                     self.player_pairs.append(drawn)
                     self._show_pairs(self.player_pairs)
-                    print("Now it's my turn.")
                 else:
                     self.player_hand.add_card(drawn)
-                    print("Now it's my turn.")
+                    
+    def computer_turn(self):
+        """Computers turn"""
+        print("Now it's my turn.")
+        time.sleep(1)
+        if self.computer_hand.is_empty():
+            print("I have no cards, so I'll draw.")
+            self.computer_hand.add_card(self.deck.draw())
+        request = self.computer_hand.remove_card(choice(self.computer_hand.cards))
+        print(f"Do you have any {request.value}'s")
+        match = self.player_hand.check_for_match(request)
+        time.sleep(1)
+        if match:
+            print("I got a match!")
+            self.computer_pairs.append(match)
+            self.computer_pairs.append(request)
+            print("Here are my pairs: ")
+            self._show_pairs(self.computer_pairs)
+            print("\nI'll go again!")
+            time.sleep(1)
+            self.computer_turn()
+        else:
+            print("Not a match. I'll go fish.")
+            drawn = self.deck.draw()
+            time.sleep(1)
+            if drawn.same_value(request):
+                print("I got the card I asked for! Here are my pairs: ")
+                self.computer_pairs.append(drawn)
+                self.computer_pairs.append(request)
+                print("Here are my pairs: ")
+                self._show_pairs(self.computer_pairs)
+                print("\nI'll go again!")
+                time.sleep(1)
+                self.computer_turn()
+            else:
+                self.computer_hand.add_card(request)
+                match = self.computer_hand.check_for_match(drawn)
+                if match:
+                    print("I got a match!")
+                    self.computer_pairs.append(match)
+                    self.computer_pairs.append(request)
+                    print("Here are my pairs: ")
+                    self._show_pairs(self.computer_pairs)
+                    time.sleep(1)
+
+
+        
 
     def _show_pairs(self, pairs):
         "Display pairs"
